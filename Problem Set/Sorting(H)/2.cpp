@@ -2,9 +2,9 @@
 using namespace std;
 
 bool checkSum(vector<int> &a, int n) {
-    for(int i = 0; i < a.size(); i++) {
-        for(int j = 0; j < a.size(); j++) {
-            if(a[i] + a[j] == n) {
+    for (int i = 0; i < a.size() - 1; i++) {
+        for (int j = i + 1; j < a.size(); j++) {
+            if (a[i] + a[j] == n) {
                 return 1;
             }
         }
@@ -22,7 +22,7 @@ int main()
 
     int findNum; cin >> findNum;
 
-    if(checkSum(a, findNum)) cout << "True";
+    if (checkSum(a, findNum)) cout << "True";
     else cout << "False";
 
     return 0;

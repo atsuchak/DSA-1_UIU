@@ -7,7 +7,7 @@ int sqRt(int n) {
 	int lo = 1, hi = n, ans = 0;
 
 	while (lo <= hi) {
-		int mid = lo + (hi - lo) / 2;
+		int mid = (lo + hi) / 2;
 
 		if (mid <= n / mid) {
 			ans = mid;
@@ -15,7 +15,7 @@ int sqRt(int n) {
 		} else {
 			hi = mid - 1;
 		}
-		// cout << "mid: " << mid << " ans: " << ans << " lo: " << lo << " hi: " << hi << endl;
+		cout << "mid: " << mid << " ans: " << ans << " lo: " << lo << " hi: " << hi << endl;
 	}
 
 	return ans;
