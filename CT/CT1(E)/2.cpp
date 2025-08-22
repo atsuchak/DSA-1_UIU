@@ -15,7 +15,7 @@ int sqRt(int n) {
 		} else {
 			hi = mid - 1;
 		}
-		cout << "mid: " << mid << " ans: " << ans << " lo: " << lo << " hi: " << hi << endl;
+		// cout << "mid: " << mid << " ans: " << ans << " lo: " << lo << " hi: " << hi << endl;
 	}
 
 	return ans;
