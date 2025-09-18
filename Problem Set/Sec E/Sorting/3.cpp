@@ -1,40 +1,126 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void sortArr(vector<int> &a, int n)
-{
-    for (int i = 0; i < n - 1; i++)
-    {
-        int smallestElement = i;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (a[j] < a[smallestElement])
-                smallestElement = j;
+#define ff first
+#define ss second
+#define all(x) (x).begin(), (x).end()
+
+int count(vector<int> &a, int n) {
+    int hi = 0;
+
+    for (int i = 0; i < n ; i++) {
+        if (a[i] >= hi) hi = a[i];
+    }
+
+    hi++;
+
+    vector<int> freq(hi, 0);
+
+    for (int i = 0; i < n;  i++) {
+        freq[a[i]]++;
+    }
+
+    for (int i = 1; i < freq.size(); i++) freq[i] += freq[i - 1];
+
+    vector<int> store(n);
+
+    for (int i = n - 1; i >= 0; i--) {
+        store[--freq[a[i]]] = a[i];
+    }
+
+    for (int i = 0; i < n; i++) cout << store[i] << " ";
+    cout << endl;
+
+    int smallest = a[n - 1];
+    for (int i = 1; i <= n; i++) if (store[i] - store[i - 1] < smallest) smallest = store[i] - store[i - 1];
+
+    return smallest;
+}
+
+int inser(vector<int> &a, int n) {
+    for (int i = 1; i <= n; i++) {
+        int key = a[i];
+        int j = i - 1;
+
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
         }
-        swap(a[smallestElement], a[i]);
+        a[j + 1] = key;
     }
+
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+
+    int smallest = a[n - 1];
+    for (int i = 1; i <= n; i++) if (a[i] - a[i - 1] < smallest) smallest = a[i] - a[i - 1];
+
+    return smallest;
 }
 
-void smallestDiff(vector<int> &a, int n) {
-    int smallest = a[n-1];
-    for(int i = 1; i < n; i++) {
-        if((a[i] - a[i-1]) < smallest) smallest = a[i] - a[i-1];
+int select(vector<int> &a, int n) {
+
+    for (int i = 0; i < n - 1; i++) {
+
+        int smallestEl = i;
+        for (int j = i + 1; j < n; j++) {
+            if (a[j] < a[smallestEl]) {
+                smallestEl = j;
+            }
+        }
+        int temp = a[i];
+        a[i] = a[smallestEl];
+        a[smallestEl] = temp;
     }
-    cout << smallest << endl;
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+
+    int smallest = a[n - 1];
+    for (int i = 1; i <= n; i++) if (a[i] - a[i - 1] < smallest) smallest = a[i] - a[i - 1];
+
+    return smallest;
 }
 
-int main()
-{
+int bubble(vector<int> &a, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++)
+            if (a[j] > a[j + 1]) {
+                int temp = a[j + 1];
+                a[j + 1] = a[j];
+                a[j] = temp;
+            }
+    }
 
-    int n;
-    cin >> n;
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+
+    int smallest = a[n - 1];
+    for (int i = 1; i <= n; i++) if (a[i] - a[i - 1] < smallest) smallest = a[i] - a[i - 1];
+
+    return smallest;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    freopen("D:/Sublime file/input.txt", "r", stdin);
+    freopen("D:/Sublime file/output.txt", "w", stdout);
+
+    int n; cin >> n;
 
     vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
+    for (int i = 0; i < n; i++) cin >> a[i];
 
-    sortArr(a, n);
-    smallestDiff(a, n);
+    cout << "Before sort: ";
+    for (int i : a) cout << i << " ";
+    cout << endl;
+
+    cout << "After sort: ";
+    // cout << count(a, n);
+    // cout << inser(a, n);
+    // cout << bubble(a, n);
+    cout << select(a, n);
 
     return 0;
 }
