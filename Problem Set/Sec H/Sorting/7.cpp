@@ -1,43 +1,60 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-void uniqueArr(vector<int> &a, int n) {
-	int k = 0;
-	int count = 0;
+#define ff first
+#define ss second
+#define all(x) (x).begin(), (x).end()
 
-	sort(a.begin(), a.end());
-
-
-	for (int i = 0; i < n; i++) cout << a[i] << " ";
-	cout << endl;
-
-	for (int i = 0; i < n; i++ ) {
-
-		int x = a[k];
-
-		for (int j = k + 1 ; j < n; j++) {
-			if (x == a[j]) {
-				a[j]++;
-				count++;
-			}
+void sSort(vector<int> &a, int n) {
+	for (int i = 0; i < n - 1; i++) {
+		int smEl = i;
+		for (int j = i + 1; j < n; j++) {
+			if (a[j] < a[smEl]) smEl = j;
 		}
-		k++;
+		swap(a[i], a[smEl]);
 	}
-	cout << count;
 }
-
 
 int main() {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	cin.tie(nullptr);
+
+	freopen("D:/Sublime file/input.txt", "r", stdin);
+	freopen("D:/Sublime file/output.txt", "w", stdout);
 
 	int n; cin >> n;
 
 	vector<int> a(n);
 	for (int i = 0; i < n; i++) cin >> a[i];
 
-	uniqueArr(a, n);
+	cout << "Before sort: ";
+	for (int it : a) cout << it << " ";
+	cout << endl;
 
+	sSort(a, n);
+
+	cout << "After sort: ";
+	for (int it : a) cout << it << " ";
+	cout << endl;
+
+	int cnt = 0, init = 0;
+
+	for (int i = 0; i < n; i++) {
+		int x = a[init];
+
+		for (int j = i + 1; j < n; j++) {
+			if (a[j] == x) {
+				a[j]++;
+				cnt++;
+			}
+		}
+		init++;
+	}
+
+	cout << "After solve: ";
+	for (int it : a) cout << it << " ";
+	cout << endl;
+
+	cout << "Count: " << cnt << endl;
 	return 0;
 }

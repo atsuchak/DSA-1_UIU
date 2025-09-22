@@ -1,37 +1,33 @@
-#include<iostream>
-#include<algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-int main()
-{
-	int n;
-	cin >> n;
-	int a[n];
 
-	for (int i = 0; i < n; i++)
-	{
-		cin >> a[i];
-	}
-	int ma = *max_element(a, a + n);
-	int b[ma + 1] = {0};
-	for (int i = 0; i < n; i++)
-	{
-		b[a[i]]++;
+#define ff first
+#define ss second
+#define all(x) (x).begin(), (x).end()
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	freopen("D:/Sublime file/input.txt", "r", stdin);
+	freopen("D:/Sublime file/output.txt", "w", stdout);
+
+	int n; cin >> n;
+
+	vector<pair<int, int>> a(n);
+	for (int i = 0; i < n; i++) cin >> a[i].first >> a[i].second;
+
+	sort(a.begin(), a.end());
+
+	bool chk = 1;
+
+	for (int i = 0; i < n - 1; i++) {
+		if (a[i + 1].first < a[i].second) chk = 0;
+		else chk = 1;
 	}
 
-	int c = *max_element(b, b + ma + 1);
-	for (int i = c; i > 0; i--)
-	{
-		for (int j = 0; j <= ma; j++)
-		{
-			if (i == b[j])
-			{
-				for (int k = b[j]; k > 0; k--)
-				{
-					cout << j << " ";
-				}
-				b[j] = 0;
-			}
+	if (chk) cout << "True" << endl;
+	else cout << "False" << endl;
 
-		}
-	}
+	return 0;
 }

@@ -40,13 +40,11 @@ void mergeLL(node* head1, node* head2) {
 	while (temp2 != NULL) {
 		if (temp1->data <= temp2->data) {
 			insert(temp1->data);
-			insert(temp2->data);
+		temp1 = temp1->next;
 		} else {
 			insert(temp2->data);
-			insert(temp1->data);
-		}
-		temp1 = temp1->next;
 		temp2 = temp2->next;
+		}
 	}
 }
 
