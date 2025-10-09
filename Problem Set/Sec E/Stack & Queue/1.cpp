@@ -42,11 +42,17 @@ void print(Stack st) {
 	
 	if(st.isEmpty()) return;
 
+	Stack s;
+
 	while(!st.isEmpty()) {
-		cout << st.peek() << " ";
+		s.push(st.peek());
 		st.pop();
 	}
-	cout << endl;
+
+	while(!s.isEmpty()) {
+		cout << s.peek() << " ";
+		s.pop();
+	}
 }
 
 int main() {
